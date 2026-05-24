@@ -29,43 +29,44 @@ const products = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-zinc-900 selection:bg-rose-500/30 selection:text-rose-600">
+    <main className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-[#D4AF37]/20 selection:text-[#D4AF37]">
       {/* Navbar */}
-      <nav className="border-b border-zinc-100 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+      <nav className="border-b border-zinc-900 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <h1 className="text-2xl font-extrabold tracking-tight text-zinc-900">
-            Tixa<span className="text-rose-500">Store</span>
+          {/* Logo Pink Menyala Estetis */}
+          <h1 className="text-2xl font-extrabold tracking-tight text-pink-500 drop-shadow-[0_0_8px_rgba(236,72,153,0.3)]">
+            Tixa Store
           </h1>
           <div className="flex items-center gap-4">
-            <button className="rounded-xl bg-zinc-50 p-2.5 text-zinc-600 hover:bg-zinc-100 transition-colors">
+            <button className="rounded-xl bg-zinc-900 p-2.5 text-zinc-400 hover:bg-zinc-800 hover:text-[#D4AF37] transition-colors border border-zinc-800">
               <Search size={20} />
             </button>
-            <button className="rounded-xl bg-rose-500 p-2.5 text-white hover:bg-rose-600 shadow-lg shadow-rose-500/20 hover:shadow-rose-500/30 transition-all">
+            <button className="rounded-xl bg-[#D4AF37] p-2.5 text-zinc-950 hover:bg-[#F3E5AB] shadow-lg shadow-[#D4AF37]/10 hover:shadow-[#D4AF37]/20 transition-all font-bold">
               <ShoppingCart size={20} />
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
+      {/* Hero (Hitam & Pure Gold Premium) */}
       <section className="mx-auto max-w-7xl px-6 py-12">
-        <div className="rounded-3xl bg-zinc-900 p-10 md:p-14 relative overflow-hidden shadow-xl shadow-zinc-900/10">
-          {/* Efek gradasi spidol estetis di background hero */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-rose-500/20 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-rose-600/10 rounded-full blur-[80px] pointer-events-none" />
+        <div className="rounded-3xl bg-zinc-900 p-10 md:p-14 relative overflow-hidden border border-zinc-800 shadow-2xl">
+          {/* Kilau Cahaya Gold di Background */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-[#D4AF37]/10 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-[#D4AF37]/5 rounded-full blur-[100px] pointer-events-none" />
           
           <div className="relative z-10">
             <h2 className="text-4xl md:text-5xl font-black leading-tight text-white tracking-tight">
               Marketplace Akun
               <br />
-              <span className="bg-gradient-to-r from-rose-400 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent">
                 Volleyball Legends
               </span>
             </h2>
-            <p className="mt-4 max-w-2xl text-base md:text-lg text-zinc-400">
+            <p className="mt-4 max-w-2xl text-base md:text-lg text-zinc-400 font-medium">
               Jual beli akun Volleyball Legends aman, cepat, dan otomatis.
             </p>
-            <button className="mt-8 rounded-xl bg-rose-500 px-6 py-3.5 font-bold text-white hover:bg-rose-600 shadow-lg shadow-rose-500/20 hover:shadow-rose-500/30 transition-all transform hover:-translate-y-0.5">
+            <button className="mt-8 rounded-xl bg-[#D4AF37] px-6 py-3.5 font-bold text-zinc-950 hover:bg-[#F3E5AB] shadow-lg shadow-[#D4AF37]/20 transition-all transform hover:-translate-y-0.5">
               Belanja Sekarang
             </button>
           </div>
@@ -75,8 +76,8 @@ export default function Home() {
       {/* Product Grid */}
       <section className="mx-auto max-w-7xl px-6 pb-20">
         <div className="mb-8 flex items-center justify-between">
-          <h3 className="text-2xl md:text-3xl font-black tracking-tight text-zinc-900">Produk Terbaru</h3>
-          <button className="rounded-xl bg-zinc-50 border border-zinc-200 px-4 py-2 text-sm font-semibold text-zinc-600 hover:bg-zinc-100 transition-colors">
+          <h3 className="text-2xl md:text-3xl font-black tracking-tight text-white">Produk Terbaru</h3>
+          <button className="rounded-xl bg-zinc-900 border border-zinc-800 px-4 py-2 text-sm font-semibold text-[#D4AF37] hover:bg-zinc-800 transition-colors">
             Lihat Semua
           </button>
         </div>
@@ -85,28 +86,29 @@ export default function Home() {
           {products.map((product) => (
             <div
               key={product.id}
-              className="group overflow-hidden rounded-2xl border border-zinc-100 bg-white shadow-sm hover:shadow-md transition-all duration-300"
+              className="group overflow-hidden rounded-2xl border border-zinc-900 bg-zinc-900 shadow-xl hover:border-[#D4AF37]/40 transition-all duration-300"
             >
               <div className="overflow-hidden relative">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="h-56 w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="h-56 w-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-95 group-hover:brightness-100"
                 />
               </div>
               <div className="p-6">
-                <h4 className="text-lg font-bold text-zinc-900 line-clamp-1 group-hover:text-rose-500 transition-colors">
+                <h4 className="text-lg font-bold text-white line-clamp-1 group-hover:text-[#D4AF37] transition-colors">
                   {product.title}
                 </h4>
                 <div className="mt-3 flex items-baseline justify-between">
-                  <p className="text-xl font-black text-rose-500">
+                  <p className="text-xl font-black text-[#D4AF37]">
                     {product.price}
                   </p>
-                  <p className="text-xs font-medium text-zinc-400 bg-zinc-50 px-2.5 py-1 rounded-md border border-zinc-100">
+                  <p className="text-xs font-semibold text-[#D4AF37] bg-[#D4AF37]/10 px-2.5 py-1 rounded-md border border-[#D4AF37]/20">
                     Stok: {product.stock}
                   </p>
                 </div>
-                <button className="mt-6 w-full rounded-xl bg-zinc-900 py-3.5 font-bold text-white hover:bg-rose-500 transition-all shadow-md shadow-zinc-900/5 hover:shadow-rose-500/20">
+                {/* Tombol Beli Emas Terbuka, berubah jadi Full Gold saat di-hover */}
+                <button className="mt-6 w-full rounded-xl bg-zinc-950 border border-[#D4AF37]/30 py-3.5 font-bold text-[#D4AF37] hover:bg-[#D4AF37] hover:text-zinc-950 hover:border-[#D4AF37] transition-all shadow-sm">
                   Beli Sekarang
                 </button>
               </div>
