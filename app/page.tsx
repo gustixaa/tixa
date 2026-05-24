@@ -19,7 +19,7 @@ const products = [
   },
   {
     id: 3,
-    title: "Starter Account Volleyball Legends",
+    title: "Starter Volleyball Legends",
     price: "Rp 80.000",
     image:
       "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1200&auto=format&fit=crop",
@@ -29,20 +29,24 @@ const products = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#fff7fb] text-gray-900">
+    <main className="min-h-screen bg-[#fffafd] text-gray-900">
+      {/* Background Blur */}
+      <div className="fixed left-0 top-0 -z-10 h-96 w-96 rounded-full bg-pink-200/40 blur-3xl"></div>
+      <div className="fixed bottom-0 right-0 -z-10 h-96 w-96 rounded-full bg-rose-100 blur-3xl"></div>
+
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 border-b border-pink-100 bg-white/80 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <h1 className="text-3xl font-bold text-pink-500">
+      <nav className="sticky top-0 z-50 border-b border-pink-100/50 bg-white/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+          <h1 className="text-3xl font-black tracking-tight text-pink-500">
             Tixa
           </h1>
 
           <div className="flex items-center gap-3">
-            <button className="rounded-xl border border-pink-100 bg-white p-3 shadow-sm transition hover:bg-pink-50">
+            <button className="rounded-2xl border border-pink-100 bg-white p-3 shadow-sm transition hover:scale-105">
               <Search size={20} />
             </button>
 
-            <button className="rounded-xl bg-pink-500 p-3 text-white shadow-lg transition hover:bg-pink-600">
+            <button className="rounded-2xl bg-pink-500 p-3 text-white shadow-lg shadow-pink-200 transition hover:scale-105 hover:bg-pink-600">
               <ShoppingCart size={20} />
             </button>
           </div>
@@ -50,43 +54,53 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="mx-auto max-w-7xl px-6 py-16">
-        <div className="relative overflow-hidden rounded-[40px] bg-gradient-to-br from-pink-400 via-pink-300 to-rose-200 p-10 shadow-2xl">
-          <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-white/20 blur-3xl"></div>
+      <section className="mx-auto max-w-7xl px-6 py-20">
+        <div className="relative overflow-hidden rounded-[40px] border border-white/40 bg-white/60 p-10 shadow-[0_20px_80px_rgba(255,192,203,0.25)] backdrop-blur-2xl md:p-16">
+          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-pink-300/30 blur-3xl"></div>
 
           <div className="relative z-10">
-            <h2 className="text-5xl font-extrabold leading-tight text-white md:text-6xl">
-              Marketplace
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-pink-400">
+              Premium Marketplace
+            </p>
+
+            <h2 className="text-5xl font-black leading-tight text-gray-900 md:text-7xl">
+              Volleyball
               <br />
-              Volleyball Legends
+              Legends Store
             </h2>
 
-            <p className="mt-6 max-w-2xl text-lg text-white/90">
-              Jual beli akun Volleyball Legends dengan tampilan modern,
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-600">
+              Marketplace akun Volleyball Legends dengan desain premium,
               transaksi aman, dan pengiriman akun otomatis.
             </p>
 
-            <button className="mt-8 rounded-2xl bg-white px-7 py-4 font-semibold text-pink-500 shadow-lg transition hover:scale-105">
-              Belanja Sekarang
-            </button>
+            <div className="mt-10 flex gap-4">
+              <button className="rounded-2xl bg-pink-500 px-8 py-4 font-semibold text-white shadow-xl shadow-pink-200 transition hover:scale-105 hover:bg-pink-600">
+                Belanja Sekarang
+              </button>
+
+              <button className="rounded-2xl border border-pink-100 bg-white px-8 py-4 font-semibold text-gray-700 transition hover:bg-pink-50">
+                Explore
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Product Section */}
-      <section className="mx-auto max-w-7xl px-6 pb-20">
-        <div className="mb-10 flex items-center justify-between">
+      {/* Products */}
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="mb-10 flex items-end justify-between">
           <div>
-            <h3 className="text-4xl font-bold text-gray-900">
-              Produk Terbaru
+            <h3 className="text-4xl font-black text-gray-900">
+              Featured Accounts
             </h3>
 
-            <p className="mt-2 text-gray-500">
-              Pilih akun terbaik untuk pengalaman bermain maksimal.
+            <p className="mt-3 text-gray-500">
+              Akun pilihan dengan kualitas premium.
             </p>
           </div>
 
-          <button className="rounded-2xl border border-pink-200 bg-white px-5 py-3 font-medium text-pink-500 shadow-sm transition hover:bg-pink-50">
+          <button className="rounded-2xl border border-pink-100 bg-white px-5 py-3 font-medium text-pink-500 shadow-sm transition hover:bg-pink-50">
             Lihat Semua
           </button>
         </div>
@@ -95,13 +109,13 @@ export default function Home() {
           {products.map((product) => (
             <div
               key={product.id}
-              className="group overflow-hidden rounded-3xl bg-white shadow-lg transition hover:-translate-y-2 hover:shadow-2xl"
+              className="group overflow-hidden rounded-[32px] border border-white/50 bg-white/70 shadow-xl shadow-pink-100/40 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
             >
               <div className="overflow-hidden">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="h-64 w-full object-cover transition duration-300 group-hover:scale-110"
+                  className="h-64 w-full object-cover transition duration-500 group-hover:scale-110"
                 />
               </div>
 
@@ -110,15 +124,15 @@ export default function Home() {
                   {product.title}
                 </h4>
 
-                <p className="mt-3 text-2xl font-semibold text-pink-500">
+                <p className="mt-3 text-3xl font-black text-pink-500">
                   {product.price}
                 </p>
 
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-2 text-sm text-gray-500">
                   Stock tersedia: {product.stock}
                 </p>
 
-                <button className="mt-6 w-full rounded-2xl bg-pink-500 py-4 font-semibold text-white transition hover:bg-pink-600">
+                <button className="mt-6 w-full rounded-2xl bg-pink-500 py-4 font-semibold text-white shadow-lg shadow-pink-200 transition hover:bg-pink-600">
                   Beli Sekarang
                 </button>
               </div>
