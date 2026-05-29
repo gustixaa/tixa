@@ -1,0 +1,61 @@
+-- 1. MEMBUAT TABEL CHAT ROOMS
+CREATE TABLE IF NOT EXISTS public.chat_rooms (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    buyer_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+    CONSTRAINT unique_buyer_room UNIQUE (buyer_id)
+);
+
+-- 2. MEMBUAT TABEL MESSAGES
+CREATE TABLE IF NOT EXISTS public.messages (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    room_id UUID REFERENCES public.chat_rooms(id) ON DELETE CASCADE NOT NULL,
+    sender_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+    message TEXT NOT NULL,
+    product_id UUID REFERENCES public.product(id) ON DELETE SET NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
+);
+
+-- 3. MEMBUAT TABEL USER PRESENCE
+CREATE TABLE IF NOT EXISTS public.user_presence (
+    user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
+    email TEXT,
+    last_seen TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
+);
+
+-- 4. OTOMATISASI PENGISIAN USER PRESENCE
+CREATE OR REPLACE FUNCTION public.handle_user_login()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO public.user_presence (user_id, email, last_seen)
+    VALUES (NEW.id, NEW.email, NOW())
+    ON CONFLICT (user_id) DO UPDATE
+    SET last_seen = NOW(), email = NEW.email;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Trigger untuk menjalankan fungsi di atas
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+    AFTER INSERT ON auth.users
+    FOR EACH ROW EXECUTE FUNCTION public.handle_user_login();
+
+-- 5. MENGAKTIFKAN KEAMANAN (RLS)
+ALTER TABLE public.chat_rooms ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_presence ENABLE ROW LEVEL SECURITY;
+
+-- 6. MENGATUR POLICY (Agar tidak bentrok kalau dijalankan ulang)
+DROP POLICY IF EXISTS "Akses penuh untuk user login di chat_rooms" ON public.chat_rooms;
+DROP POLICY IF EXISTS "Akses penuh untuk user login di messages" ON public.messages;
+DROP POLICY IF EXISTS "Akses penuh untuk user login di user_presence" ON public.user_presence;
+
+CREATE POLICY "Akses penuh untuk user login di chat_rooms" 
+ON public.chat_rooms FOR ALL TO authenticated USING (true);
+
+CREATE POLICY "Akses penuh untuk user login di messages" 
+ON public.messages FOR ALL TO authenticated USING (true);
+
+CREATE POLICY "Akses penuh untuk user login di user_presence" 
+ON public.user_presence FOR ALL TO authenticated USING (true);

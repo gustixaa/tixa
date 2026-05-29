@@ -1,0 +1,29 @@
+-- Simulasi webhook: update order jadi settlement + isi account_data dari stok
+WITH stok AS (
+  SELECT id, game_email, game_password
+  FROM account_stocks
+  WHERE product_id = (
+    SELECT product_id FROM orders WHERE order_id = 'TIXA-xxxxx'
+  )
+  AND is_sold = false
+  LIMIT 1
+)
+UPDATE orders
+SET 
+  status = 'settlement',
+  account_data = 'Email: ' || (SELECT game_email FROM stok) || E'\nPassword: ' || (SELECT game_password FROM stok),
+  delivered_email = (SELECT game_email FROM stok),
+  delivered_password = (SELECT game_password FROM stok)
+WHERE order_id = 'TIXA-xxxxx';
+
+-- Tandai stok sebagai terjual
+UPDATE account_stocks
+SET is_sold = true
+WHERE id = (
+  SELECT id FROM account_stocks
+  WHERE product_id = (
+    SELECT product_id FROM orders WHERE order_id = 'TIXA-xxxxx'
+  )
+  AND is_sold = false
+  LIMIT 1
+);
